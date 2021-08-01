@@ -20,7 +20,7 @@ namespace my_books.Exceptions
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
-            try
+            try 
             {
                 await _next(httpContext);
             }
