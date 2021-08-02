@@ -59,3 +59,4 @@ D:\asp net courses\my-books\my-books\obj\Debug\net5.0\my-books.dll
 D:\asp net courses\my-books\my-books\obj\Debug\net5.0\ref\my-books.dll
 D:\asp net courses\my-books\my-books\obj\Debug\net5.0\my-books.pdb
 D:\asp net courses\my-books\my-books\obj\Debug\net5.0\my-books.genruntimeconfig.cache
+D:\asp net courses\my-books\my-books\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Versioning.dll
