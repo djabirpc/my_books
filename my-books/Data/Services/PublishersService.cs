@@ -1,4 +1,5 @@
 ﻿using my_books.Data.Models;
+using my_books.Data.Paging;
 using my_books.Data.ViewModels;
 using my_books.Exceptions;
 using System;
@@ -30,6 +31,36 @@ namespace my_books.Data.Services
             _context.SaveChanges();
 
             return _publisher;
+        }
+
+        public List<Publisher> GetAllPublishers(string sortBy,string searchString,int? pageNumber)
+        {
+
+            var allPublishers = _context.Publishers.OrderBy(n => n.Name).ToList();
+
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                switch (sortBy)
+                {
+                    case "name_desc":
+                        allPublishers = allPublishers.OrderByDescending(n => n.Name).ToList();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                allPublishers = allPublishers.Where(n => n.Name.Contains(searchString,StringComparison.CurrentCultureIgnoreCase)).ToList();
+            }
+
+            //Paging
+            int pageSize = 4;
+            allPublishers = PaginatedList<Publisher>.Create(allPublishers.AsQueryable(),pageNumber ?? 1,pageSize);
+
+            return allPublishers;
+            
         }
 
         public Publisher GetPublisherById(int id) => _context.Publishers.FirstOrDefault(n => n.Id == id);
@@ -65,7 +96,7 @@ namespace my_books.Data.Services
 
         }
     
-    
+  
     
         private bool StringStartsWithNumber(string name) => (Regex.IsMatch(name, @"^\d"));
         
